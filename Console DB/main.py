@@ -21,8 +21,9 @@ def get_customers():
                 customers = []
         return customers
 
-def create(customers):
+def create():
     Customer = {
+        "ID": 0,
         "Name": "",
         "Surname": "",
         "Email": "",
@@ -33,6 +34,7 @@ def create(customers):
         "ActiveDiscount": 0
     }
 
+    Customer["ID"] = customers_file.count("ID") + 1
     Customer["Name"] = input("Enter Name: ")
     Customer["Surname"] = input("Enter Surname: ")
     Customer["Email"] = input("Enter Email: ")
@@ -54,23 +56,37 @@ def update():
     menu()
 
 def delete():
-    pass
+    customer_to_delete = input("Enter the ID of the customer to delete: ")
 
 def get():
-    customers_to_get = input("Enter the number of customers to retrieve (or 'all' for all): ")
-    if customers_to_get.lower() == "all":
-        for customer in customers:
-            print(customer)
+    from_customer = int(input("Enter the margin of customers to retrieve:\nFrom:"))
+    to_customer = input("To (leave empty for all): ")
+    
+    if to_customer == "":
+        to_customer = len(customers)
     else:
-        try:
-            num = int(customers_to_get)
-            for customer in customers[:num]:
-                print(customer)
+        to_customer = int(to_customer)
 
-            if num > len(customers):
-                print(f"Only {len(customers)} customers available.")
-        except ValueError:
-            print("Invalid input. Please enter a number or 'all'.")
+    if from_customer < 1:
+        print("Invalid range. The minimal value is 1. Please try again.")
+        get()
+        return
+    if from_customer > to_customer:
+        print("Invalid range. The 'From' value cannot be greater than the 'To' value. Please try again.")
+        get()
+        return
+    if from_customer > len(customers):
+        print("Invalid range. The 'From' value cannot be greater than the total number of customers. Please try again.")
+        get()
+        return
+
+    if to_customer > len(customers):
+        to_customer = len(customers)
+        print(f"The right margin of customers is greater than amount of customers.\nMargin set to last customer:{len(customers)}\n")
+
+    for customer in customers[from_customer-1:to_customer]:
+        print(customer, "\n")
+
     menu()
 
 def menu():
@@ -84,7 +100,7 @@ def menu():
     action = input("Enter the action number: ")
 
     if action == "1":
-        create(customers)
+        create()
     elif action == "2":
         update()
     elif action == "3":

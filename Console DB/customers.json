@@ -1,5 +1,6 @@
 [
     {
+        "ID": 1,
         "Name": "Valerii",
         "Surname": "Oliinyk",
         "Email": "valeraolen094@gmail.com",
@@ -10,6 +11,7 @@
         "ActiveDiscount": 0
     },
     {
+        "ID": 2,
         "Name": "Vasya",
         "Surname": "Pupkin",
         "Email": "vasyapupik245@gmail.com",

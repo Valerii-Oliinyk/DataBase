@@ -64,6 +64,7 @@ def update():
         json.dump(customers, file, indent=4)
     get_customers()
     clear_console()
+    print("Everything updated!")
     menu()
 
 def delete():
@@ -75,6 +76,16 @@ def delete():
         print("Invalid ID. Please try again.")
         delete()
         return
+
+    if customer_to_delete < 1 or customer_to_delete > len(customers):
+        clear_console()
+        print("Invalid ID. Please try again.")
+        delete()
+        return
+
+    customers.pop(customer_to_delete - 1)
+    print("Customer deleted successfully!")
+    menu()
 
 def get():
     from_customer = int(input("Enter the margin of customers to retrieve:\nFrom:"))

@@ -8,7 +8,7 @@ def get_customers_file_path():
     return os.path.join(os.path.dirname(__file__), "customers.json")
     
 
-def get_customers(customers):
+def get_customers():
     if os.path.exists(customers_file):
         with open(customers_file, "r") as file:
             try:
@@ -19,6 +19,7 @@ def get_customers(customers):
                     customers = []
             except json.JSONDecodeError:
                 customers = []
+        return customers
 
 def create(customers):
     Customer = {
@@ -49,14 +50,28 @@ def create(customers):
 def update():
     with open(customers_file, "w") as file:
         json.dump(customers, file, indent=4)
-    get_customers(customers)
+    get_customers()
     menu()
 
 def delete():
     pass
 
 def get():
-    pass
+    customers_to_get = input("Enter the number of customers to retrieve (or 'all' for all): ")
+    if customers_to_get.lower() == "all":
+        for customer in customers:
+            print(customer)
+    else:
+        try:
+            num = int(customers_to_get)
+            for customer in customers[:num]:
+                print(customer)
+
+            if num > len(customers):
+                print(f"Only {len(customers)} customers available.")
+        except ValueError:
+            print("Invalid input. Please enter a number or 'all'.")
+    menu()
 
 def menu():
     print("""
@@ -83,6 +98,6 @@ def menu():
 
 # OnStart code
 customers_file = get_customers_file_path()
-get_customers(customers)
+customers = get_customers()
 print("Welcome to the Console Database!")
 menu()

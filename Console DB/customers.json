@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "Name": "Valerii",
+        "Surname": "Oliinyk",
+        "Email": "valeraolen094@gmail.com",
+        "DateOfBirth": "21.01.2007",
+        "Country": "Ukraine",
+        "IsMember": true,
+        "TotalPurchases": 2000.0,
+        "ActiveDiscount": 0
+    },
+    {
+        "Name": "Vasya",
+        "Surname": "Pupkin",
+        "Email": "vasyapupik245@gmail.com",
+        "DateOfBirth": "18.09.2005",
+        "Country": "Germany",
+        "IsMember": false,
+        "TotalPurchases": 103.0,
+        "ActiveDiscount": 0
+    }
+]

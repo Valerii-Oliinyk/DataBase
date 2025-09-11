@@ -43,14 +43,14 @@ def create(customers):
 
     customers.append(Customer)
 
-    with open(customers_file, "w") as file:
-        json.dump(customers, file, indent=4)
-
     print("Customer created successfully!")
     menu()
 
 def update():
-    pass
+    with open(customers_file, "w") as file:
+        json.dump(customers, file, indent=4)
+    get_customers(customers)
+    menu()
 
 def delete():
     pass

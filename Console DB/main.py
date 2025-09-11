@@ -34,15 +34,25 @@ def create():
         "ActiveDiscount": 0
     }
 
-    Customer["ID"] = customers_file.count("ID") + 1
+    Customer["ID"] = len(customers) + 1
     Customer["Name"] = input("Enter Name: ")
     Customer["Surname"] = input("Enter Surname: ")
     Customer["Email"] = input("Enter Email: ")
     Customer["DateOfBirth"] = input("Enter Date of Birth (DD.MM.YYYY): ")
     Customer["Country"] = input("Enter Country: ")
     Customer["IsMember"] = True if input("Is Member (yes/no): ").lower() == "yes" else False
-    Customer["TotalPurchases"] = float(input("Enter Total Purchases: "))
-    Customer["ActiveDiscount"] = int(input("Enter Active Discount (%): "))
+    TotalPurchases = input("Enter Total Purchases: ")
+    try:
+        TotalPurchases = float(TotalPurchases)
+    except ValueError:
+        TotalPurchases = 0.0
+    ActiveDiscount = input("Enter Active Discount (%): ")
+    try:
+        ActiveDiscount = int(ActiveDiscount)
+    except ValueError:
+        ActiveDiscount = 0
+    Customer["TotalPurchases"] = TotalPurchases
+    Customer["ActiveDiscount"] = ActiveDiscount
 
     customers.append(Customer)
 

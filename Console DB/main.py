@@ -22,6 +22,20 @@ def get_customers():
         return customers
 
 def create():
+    print("\n\nBy using this function, new customer will be created but NOT saved.\nTo save all changes you will need to run the 'Update' function.\n")
+    print("""
+    1. Continue
+    2. Exit to menu
+    """)
+    action = input("Enter the action number: ")
+    if action == "2":
+        menu()
+        return
+    elif action != "1":
+        print("Invalid action. Please try again.")
+        create()
+        return
+
     Customer = {
         "ID": 0,
         "Name": "",
@@ -60,15 +74,57 @@ def create():
     menu()
 
 def update():
+    print("\n\nBy using this function, every changes will be saved.\n")
+    print("""
+    1. Continue
+    2. Exit to menu
+    """)
+    action = input("Enter the action number: ")
+    if action == "2":
+        menu()
+        return
+    elif action != "1":
+        print("Invalid action. Please try again.")
+        update()
+        return
+
     with open(customers_file, "w") as file:
         json.dump(customers, file, indent=4)
     get_customers()
     menu()
 
 def delete():
+    print("\n\nBy using this function, selected customer will be deleted, but this action will NOT be saved.\nTo save all changes you will need to run the 'Update' function.\n")
+    print("""
+    1. Continue
+    2. Exit to menu
+    """)
+    action = input("Enter the action number: ")
+    if action == "2":
+        menu()
+        return
+    elif action != "1":
+        print("Invalid action. Please try again.")
+        delete()
+        return
+
     customer_to_delete = input("Enter the ID of the customer to delete: ")
 
 def get():
+    print("\n\nBy using this function, all selected customers will be displayed.\n")
+    print("""
+    1. Continue
+    2. Exit to menu
+    """)
+    action = input("Enter the action number: ")
+    if action == "2":
+        menu()
+        return
+    elif action != "1":
+        print("Invalid action. Please try again.")
+        get()
+        return
+
     from_customer = int(input("Enter the margin of customers to retrieve:\nFrom:"))
     to_customer = input("To (leave empty for all): ")
     

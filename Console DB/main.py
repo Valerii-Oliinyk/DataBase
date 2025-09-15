@@ -1,5 +1,7 @@
 import json
 import os
+import asyncio
+import aiofiles
 
 class StorageBase:
     def Create(self, customer):
@@ -43,16 +45,17 @@ class InMemory(StorageBase):
 class JSONStorage(StorageBase):
     def __init__(self, file_path):
         self.file_path = file_path
-        self.customers = self._load()
+        self.customers = asyncio.run(self._load_async())
 
-    def _load(self):
+    async def _load_async(self):
         if os.path.exists(self.file_path):
-            with open(self.file_path, "r") as file:
+            async with aiofiles.open(self.file_path, "r", encoding="utf-8") as file:
                 try:
-                    data = json.load(file)
+                    content = await file.read()
+                    data = json.loads(content)
                     if isinstance(data, list):
                         return data
-                except json.JSONDecodeError:
+                except (json.JSONDecodeError, FileNotFoundError):
                     pass
         return []
 
@@ -73,8 +76,11 @@ class JSONStorage(StorageBase):
         return self.customers
 
     def SaveChanges(self):
-        with open(self.file_path, "w") as file:
-            json.dump(self.customers, file, indent=4)
+        asyncio.run(self._save_async())
+
+    async def _save_async(self):
+        async with aiofiles.open(self.file_path, "w", encoding="utf-8") as file:
+            await file.write(json.dumps(self.customers, indent=4))
 
 def get_customers_file_path():
     return os.path.join(os.path.dirname(__file__), "customers.json")

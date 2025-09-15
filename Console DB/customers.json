@@ -1,13 +1,1 @@
-[
-    {
-        "ID": 1,
-        "Name": "Valeri",
-        "Surname": "Oliinyk",
-        "Email": "valeraolen094@gmail.com",
-        "DateOfBirth": "21.01.2007",
-        "Country": "Ukraine",
-        "IsMember": true,
-        "TotalPurchases": 8.0,
-        "ActiveDiscount": 50
-    }
-]
+[]
